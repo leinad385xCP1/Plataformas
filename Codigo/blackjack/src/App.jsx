@@ -77,7 +77,12 @@ function App() {
   const resetGame = () => {
     setPlayerHand([]);
     setDealerHand([]);
-    setCanDraw(true);
+
+    setgameDeck(combinations);
+    setResult({ type: "", message: ""})
+    setNewgame(false);
+
+    //setCanDraw(true);
     setGameOver(false);
   
   }
