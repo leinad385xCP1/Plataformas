@@ -11,11 +11,12 @@ export default function Card({card}) {
 
 import React from 'react';
 
+// Componente de la carta
 export default function Card({ card }) {
-  // Generate the image path based on card rank and suit
-  const cardImage = `/card-images/${card.rank.toLowerCase()}_of_${card.suit.toLowerCase()}.png`;
+  // Generar la ruta de la imagen utilizando el formato con símbolos
+  const cardImage = `/card-images/${card.rank}_of_${card.suit}.png`;
 
-  // Log the generated image path to check if it's correct
+  // Registro de la ruta generada (puedes eliminarlo cuando funcione)
   console.log('Generated image path:', cardImage);
 
   return (
