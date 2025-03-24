@@ -5,6 +5,14 @@ import './App.css';
 import Hand from './components/Hand';
 
 function App() {
+
+useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/status/")
+      .then(response => response.json())
+      .then(data => console.log("Respuesta del backend:", data))
+      .catch(error => console.error("Error al conectar con el backend:", error));
+}, []);
+
   //TODO: Crear estados del juego
   const [gameDeck, setgameDeck] = useState(combinations);
   const [PlayerHand, setPlayerHand] = useState([]);
