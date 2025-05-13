@@ -10,7 +10,7 @@ const Login = () => {
     e.preventDefault();
     // Realiza la solicitud al backend para verificar las credenciales
     // Si las credenciales son correctas, redirige al juego
-    navigate('/game');
+    navigate('/blackjack');
   };
 
   return (
