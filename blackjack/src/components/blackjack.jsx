@@ -76,11 +76,38 @@ useEffect(() => {
     }
     return value;
   }
+
+  const sendGameDataToBackend = async (gameData) => {
+    try {
+      await fetch("http://127.0.0.1:8000/api/partida/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(gameData),
+      });
+    } catch (error) {
+      console.error("Error enviando datos al backend:", error);
+    }
+  };
+
   const handleGameOver = (result) => {
     setGameOver(true);
     setResult(result);
-    setNewgame(true)
+    setNewgame(true);
+
+    // Preparar datos de la partida
+    const gameData = {
+      cartas_jugador: PlayerHand,
+      cartas_dealer: DealerHand,
+      decisiones: [], // Puedes agregar lógica para registrar decisiones si lo deseas
+      resultado: result.message,
+      fecha_hora: new Date().toISOString(),
+      estrategia: "Básica", // Cambia esto si tienes lógica de estrategia
+    };
+    sendGameDataToBackend(gameData);
   };
+
   //Reseteo del juego
   const resetGame = () => {
     setPlayerHand([]);
