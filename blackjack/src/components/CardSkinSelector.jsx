@@ -119,32 +119,41 @@ const CardSkinSelector = ({ onSkinChange, currentSkin = 'classic' }) => {
   };
 
   return (
-    <div className="bg-gray-800 p-4 rounded-lg">
-      <h3 className="text-white text-lg font-bold mb-4">Selecciona el estilo de cartas</h3>
+    <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 p-6 rounded-xl border-2 border-yellow-400 shadow-2xl">
+      <div className="flex items-center justify-center gap-2 mb-6">
+        <span className="text-2xl">🎨</span>
+        <h3 className="text-white text-xl font-bold">Selecciona el estilo de cartas</h3>
+        <span className="text-2xl">🎨</span>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Object.entries(cardSkins).map(([skinKey, skin]) => (
           <div
             key={skinKey}
-            className={`p-3 rounded-lg cursor-pointer transition-all ${
+            className={`p-4 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 ${
               selectedSkin === skinKey 
-                ? 'bg-blue-600 ring-2 ring-blue-400' 
-                : 'bg-gray-700 hover:bg-gray-600'
+                ? 'bg-gradient-to-br from-yellow-600 to-yellow-700 ring-4 ring-yellow-400 shadow-lg shadow-yellow-400/50' 
+                : 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border-2 border-gray-600 hover:border-gray-500'
             }`}
             onClick={() => handleSkinChange(skinKey)}
           >
-            <h4 className="text-white font-semibold mb-2 text-center">{skin.name}</h4>
+            <h4 className="text-white font-semibold mb-3 text-center text-lg">{skin.name}</h4>
             
             {/* Vista previa de cartas */}
-            <div className="flex justify-center gap-1 mb-2">
+            <div className="flex justify-center gap-1 mb-3">
               {sampleCards.slice(0, 3).map((card, index) => (
-                <PreviewCard key={index} card={card} skin={skinKey} />
+                <div key={index} className="transform hover:scale-110 transition-transform duration-200">
+                  <PreviewCard card={card} skin={skinKey} />
+                </div>
               ))}
             </div>
             
             {selectedSkin === skinKey && (
               <div className="text-center">
-                <span className="text-green-400 text-sm">✓ Seleccionado</span>
+                <div className="inline-flex items-center gap-1 bg-green-600 px-3 py-1 rounded-full">
+                  <span className="text-green-200 text-sm">✓</span>
+                  <span className="text-white text-sm font-medium">Seleccionado</span>
+                </div>
               </div>
             )}
           </div>
