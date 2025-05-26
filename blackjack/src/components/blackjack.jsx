@@ -165,8 +165,8 @@ setDealerHand([getRandomCardFromDeck()])
   }
 },[PlayerHand,DealerHand, gameOver])
   return (
-    <div className="container mx-auto p-4 bg-slate-900 text-white h-screen w-screen" >
-      <div className="flex justify-between items-center mb-4">
+    <div className="w-full h-screen bg-slate-900 text-white flex flex-col" >
+      <div className="flex justify-between items-center p-4 border-b border-gray-700 shrink-0">
         <h1 className="text-4xl text-center flex-1">BlackJack</h1>
         <Button 
           bg_color="purple" 
@@ -178,7 +178,7 @@ setDealerHand([getRandomCardFromDeck()])
       
       {/* Selector de skins */}
       {showSkinSelector && (
-        <div className="mb-4">
+        <div className="p-4 border-b border-gray-700 shrink-0">
           <CardSkinSelector 
             onSkinChange={(skinKey) => {
               changeSkin(skinKey);
@@ -189,12 +189,12 @@ setDealerHand([getRandomCardFromDeck()])
       )}
       
       {gameOver &&  (
-        <div className={`text-white ${result.type === "Jugador" ? "bg-green-600" : "bg-red-700"} font-bold rounded-md text-center mt-4`}>
+        <div className={`text-white ${result.type === "Jugador" ? "bg-green-600" : "bg-red-700"} font-bold text-center p-4 mx-4 mt-4 rounded-md shrink-0`}>
         <h2 className='text-2xl'>{result.message}</h2>
         </div>
       )}
-      <div className="flex justify-center gap-2 mt-4 py-4">  
-        
+      
+      <div className="flex justify-center gap-4 p-4 shrink-0">  
         {!newGame ? (
         <>
           <Button bg_color={"green"} onClick={dealCardToPlayer}>Pide una carta</Button>
@@ -202,14 +202,13 @@ setDealerHand([getRandomCardFromDeck()])
         </>
       ) : (
         <Button onClick={resetGame} bg_color="blue">Volver a jugar</Button>
-
       )} 
       </div>
-    <div className="flex justify-around">
-      <Hand cards={PlayerHand} title={"Mano del jugador"} handValue={playerValue}/>
-      <Hand cards={DealerHand} title={"Mano del Dealer"} handValue={dealerValue}/>
-
-    </div>
+      
+      <div className="flex flex-col xl:flex-row justify-center items-start gap-6 p-4 flex-1 overflow-auto">
+        <Hand cards={PlayerHand} title={"Mano del jugador"} handValue={playerValue}/>
+        <Hand cards={DealerHand} title={"Mano del Dealer"} handValue={dealerValue}/>
+      </div>
     </div>
   );
 
