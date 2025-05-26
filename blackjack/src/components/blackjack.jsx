@@ -1,17 +1,21 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { combinations } from '../assets/CardDeck';
 import Button from './Button';
 import '../App.css';
 import Hand from './Hand';
+import CardSkinSelector from './CardSkinSelector';
+import { useCardSkin } from '../contexts/CardSkinContext';
 
 function blackjack() {
+  const { changeSkin } = useCardSkin();
+  const [showSkinSelector, setShowSkinSelector] = useState(false);
 
-useEffect(() => {
+  useEffect(() => {
     fetch("http://127.0.0.1:8000/api/status/")
       .then(response => response.json())
       .then(data => console.log("Respuesta del backend:", data))
       .catch(error => console.error("Error al conectar con el backend:", error));
-}, []);
+  }, []);
 
   //TODO: Crear estados del juego
   const [gameDeck, setgameDeck] = useState(combinations);
@@ -162,7 +166,28 @@ setDealerHand([getRandomCardFromDeck()])
 },[PlayerHand,DealerHand, gameOver])
   return (
     <div className="container mx-auto p-4 bg-slate-900 text-white h-screen w-screen" >
-      <h1 className="text-4xl text-center mb-4">BlackJack</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-4xl text-center flex-1">BlackJack</h1>
+        <Button 
+          bg_color="purple" 
+          onClick={() => setShowSkinSelector(!showSkinSelector)}
+        >
+          🎨 Skins
+        </Button>
+      </div>
+      
+      {/* Selector de skins */}
+      {showSkinSelector && (
+        <div className="mb-4">
+          <CardSkinSelector 
+            onSkinChange={(skinKey) => {
+              changeSkin(skinKey);
+              setShowSkinSelector(false);
+            }}
+          />
+        </div>
+      )}
+      
       {gameOver &&  (
         <div className={`text-white ${result.type === "Jugador" ? "bg-green-600" : "bg-red-700"} font-bold rounded-md text-center mt-4`}>
         <h2 className='text-2xl'>{result.message}</h2>
